@@ -1,159 +1,477 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tomarun's Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
-  <style>
-    * {
-      box-sizing: border-box;
-      font-family: 'Fira Code', monospace;
-    }
-    body {
-      margin: 0;
-      background-color: #0f0f0f;
-      color: #f5f5f5;
-      padding: 2rem;
-    }
-    h1, h2, h3 {
-      color: #ffd700;
-    }
-    a {
-      color: #00ffff;
-      text-decoration: none;
-    }
-    .badge {
-      display: inline-block;
-      margin: 0.2em;
-    }
-    .section {
-      margin-top: 2rem;
-    }
-    .card {
-      background: #1f1f1f;
-      padding: 1rem;
-      border-radius: 1rem;
-      margin-bottom: 1rem;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Enthusiast - Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #00d4aa;
+            --secondary: #ff6b35;
+            --accent: #e74c3c;
+            --dark: #0a0a0a;
+            --darker: #000000;
+            --light: #ffffff;
+            --gray: #333333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            background: radial-gradient(circle at 50% 50%, rgba(0, 212, 170, 0.1) 0%, transparent 50%);
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1s ease;
+        }
+
+        .badges {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 2rem 0;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .badge {
+            background: var(--gray);
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .badge:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 212, 170, 0.3);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--light);
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-top: 2rem;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 212, 170, 0.4);
+        }
+
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary), var(--light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background: var(--gray);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 212, 170, 0.2);
+        }
+
+        .project-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .project-status {
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .status-hold {
+            background: rgba(231, 76, 60, 0.2);
+            color: var(--accent);
+        }
+
+        .status-progress {
+            background: rgba(255, 107, 53, 0.2);
+            color: var(--secondary);
+        }
+
+        .status-complete {
+            background: rgba(0, 212, 170, 0.2);
+            color: var(--primary);
+        }
+
+        .achievements {
+            display: grid;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .achievement {
+            background: linear-gradient(135deg, var(--gray) 0%, rgba(0, 212, 170, 0.1) 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 5px solid var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .achievement:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(0, 212, 170, 0.2);
+        }
+
+        .achievement h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .skill-tag {
+            background: var(--gray);
+            padding: 0.8rem 1.5rem;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .skill-tag:hover {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            transform: scale(1.1);
+            border-color: var(--light);
+        }
+
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+            margin-top: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: var(--primary);
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .timeline-content {
+            background: var(--gray);
+            padding: 1.5rem;
+            border-radius: 10px;
+            width: 45%;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            border-color: var(--primary);
+            transform: scale(1.05);
+        }
+
+        .timeline-date {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: var(--darker);
+            margin-top: 5rem;
+        }
+
+        footer p {
+            color: var(--primary);
+            font-style: italic;
+            font-size: 1.1rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+
+        .social-link {
+            color: var(--light);
+            text-decoration: none;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            color: var(--primary);
+            transform: scale(1.2);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .section h2 {
+                font-size: 2rem;
+            }
+
+            .timeline::before {
+                left: 0;
+            }
+
+            .timeline-content {
+                width: 100%;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-  <h1>🌟 Hi, I'm Tomarun 👋</h1>
-  <p>
-    <img class="badge" src="https://img.shields.io/badge/Age-18-orange?style=for-the-badge" alt="Age"/>
-    <img class="badge" src="https://img.shields.io/badge/Have_written_code_for-2_yrs-critical?style=for-the-badge" alt="Coding Experience"/>
-  </p>
-  <p>🎮 My hobby is <strong>game development</strong>! Check out my mini game 👉
-    <a href="https://play.unity.com/en/games/dae4eae7-04fb-46ca-8ecd-b6d405c7df6b/fluppybird" target="_blank">RoamBird</a>
-  </p>
+    <section class="hero">
+        <h1>🚀 Code Enthusiast</h1>
+        <div class="badges">
+            <span class="badge">👤 Age: 18</span>
+            <span class="badge">💻 Coding Journey: 2.5 Years</span>
+            <span class="badge">📍 Location: Japan</span>
+        </div>
+        <p style="font-size: 1.3rem; max-width: 600px; margin: 2rem auto;">
+            Passionate about creating interactive experiences through code
+        </p>
+        <a href="https://play.unity.com/en/games/dae4eae7-04fb-46ca-8ecd-b6d405c7df6b/roambird" class="cta-button" target="_blank">
+            🎮 Play RoamBird
+        </a>
+    </section>
 
-  <div class="section">
-    <h2>🛠️ Skills</h2>
-    <p><em>404 :( Still growing...)</em></p>
-  </div>
+    <section class="section">
+        <h2>🎯 Current Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <span class="project-status status-hold">📦 On Hold</span>
+                <h3>RoamBird</h3>
+                <p>Interactive Unity game experience</p>
+            </div>
+            <div class="project-card">
+                <span class="project-status status-hold">📦 On Hold</span>
+                <h3>KIKORI GLASS</h3>
+                <p>Collaborative development project</p>
+            </div>
+            <div class="project-card">
+                <span class="project-status status-progress">🚧 In Progress</span>
+                <h3>BlackBoardCleaner</h3>
+                <p>ESP32-based automation project</p>
+            </div>
+        </div>
+    </section>
 
-  <div class="section">
-    <h2>📚 Books</h2>
-    <ul>
-      <li>✔️ JavaScript, Python, C++, C#, Java, SQL, AWS など幅広く読破済み</li>
-      <li>📖 未読: Spring, DB設計, アルゴリズム, OS, ネットワーク, AIなど多数</li>
-    </ul>
-  </div>
+    <section class="section">
+        <h2>🏆 Achievements</h2>
+        <div class="achievements">
+            <div class="achievement">
+                <h3>🥈 1st Runner-up - Thailand-Japan Game Programming Hackathon 2024</h3>
+                <p>International Unity Game Development Competition</p>
+                <p style="margin-top: 0.5rem;">🎮 EarthDefense - Co-developed with k4nk1 and team</p>
+            </div>
+            <div class="achievement">
+                <h3>🥈 優秀賞 (2nd Place) - Kosen Intercolleage Challenge 6th</h3>
+                <p>High-level programming competition achievement</p>
+            </div>
+            <div class="achievement">
+                <h3>📜 技術英検二級 Certified</h3>
+                <p>Technical English proficiency certification</p>
+            </div>
+            <div class="achievement">
+                <h3>🏅 Matsue Programming Contest - 敢闘賞</h3>
+                <p>36th Matsue Programming Contest (Oct 2025)</p>
+            </div>
+        </div>
+    </section>
 
-  <div class="section">
-    <h2>🧠 Language Tier</h2>
-    <div class="card">
-      💛 RESPECT / LOVE:<br>
-      TypeScript, JavaScript, LiSP
-    </div>
-    <div class="card">
-      🟢 GOOD:<br>
-      C# (Unity)
-    </div>
-    <div class="card">
-      🔵 NORMAL / LEARNING:<br>
-      C, Python, Java, SQL
-    </div>
-    <div class="card">
-      🔴 BAD:<br>
-      C++, HTML, CSS
-    </div>
-    <div class="card">
-      ⚪️ ONLY SYNTAX:<br>
-      Ruby, Perl
-    </div>
-  </div>
+    <section class="section">
+        <h2>💻 Tech Stack</h2>
+        <h3 style="text-align: center; color: var(--primary); margin-bottom: 1rem;">Built Real Applications With</h3>
+        <div class="skills-container">
+            <span class="skill-tag">TypeScript</span>
+            <span class="skill-tag">JavaScript</span>
+            <span class="skill-tag">Unity</span>
+            <span class="skill-tag">C#</span>
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">Arduino</span>
+            <span class="skill-tag">ESP32</span>
+            <span class="skill-tag">C</span>
+            <span class="skill-tag">Google Apps Script</span>
+        </div>
+        <h3 style="text-align: center; color: var(--secondary); margin: 3rem 0 1rem;">Learning & Exploring</h3>
+        <div class="skills-container">
+            <span class="skill-tag">Rust</span>
+            <span class="skill-tag">Node.js</span>
+            <span class="skill-tag">React</span>
+            <span class="skill-tag">Next.js</span>
+            <span class="skill-tag">Java</span>
+            <span class="skill-tag">SQL</span>
+            <span class="skill-tag">C++</span>
+            <span class="skill-tag">Swift</span>
+        </div>
+    </section>
 
-  <div class="section">
-    <h2>📦 Framework Tier</h2>
-    <div class="card">
-      🟢 GOOD:<br>
-      Node.js, Express, Unity
-    </div>
-    <div class="card">
-      🟢 LEARNING:<br>
-      Google Apps Script
-    </div>
-  </div>
+    <section class="section">
+        <h2>📚 My Journey</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">2018</div>
+                    <p>Begin writing command in Minecraft</p>
+                </div>
+                <div style="width: 45%;"></div>
+            </div>
+            <div class="timeline-item">
+                <div style="width: 45%;"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">2022</div>
+                    <p>Enroll at NIT Ibaraki</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">2023</div>
+                    <p>Started CS at NIT Ibaraki</p>
+                </div>
+                <div style="width: 45%;"></div>
+            </div>
+            <div class="timeline-item">
+                <div style="width: 45%;"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">2024</div>
+                    <p>3I Shikosai Project & Thailand-Japan Hackathon</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">2025</div>
+                    <p>Kosen Challenge, TwoGate DevCamp, Matsue Contest</p>
+                </div>
+                <div style="width: 45%;"></div>
+            </div>
+        </div>
+    </section>
 
-  <div class="section">
-    <h2>💻 Operating System Tier</h2>
-    <div class="card">
-      🟢 GOOD: Windows, Linux/WSL<br>
-      💡 INTERESTING: macOS
-    </div>
-  </div>
+    <footer>
+        <h2 style="margin-bottom: 1rem;">🌟 Let's Build Something Amazing Together!</h2>
+        <div class="social-links">
+            <a href="https://github.com/Tomarun029831" class="social-link" target="_blank">GitHub</a>
+        </div>
+        <p style="margin-top: 2rem;">
+            "Perfection is achieved, not when there is nothing more to add,<br>
+            but when there is nothing left to take away."<br>
+            – Antoine de Saint-Exupéry
+        </p>
+    </footer>
 
-  <div class="section">
-    <h2>🖥️ Terminal / Shell Tier</h2>
-    <div class="card">
-      🟡 NICE: PowerShell, Alacritty, WezTerm
-    </div>
-  </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('.section');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = 'fadeInUp 1s ease both';
+                    }
+                });
+            }, { threshold: 0.1 });
 
-  <div class="section">
-    <h2>⚙️ Command Tier</h2>
-    <div class="card">
-      winget, npm, ls, dir, touch, echo, cd, git
-    </div>
-  </div>
-
-  <div class="section">
-    <h2>📝 Editor Tier</h2>
-    <div class="card">
-      💛 RESPECT / LOVE: Vim, Neovim<br>
-      🟢 GOOD: VSCode<br>
-      🔵 NORMAL: Visual Studio
-    </div>
-  </div>
-
-  <div class="section">
-    <h2>🔌 Dotfiles</h2>
-    <ul>
-      <li><a href="https://github.com/Tomarun029831/NeovimSettings" target="_blank">Neovim Settings</a></li>
-      <li><a href="https://github.com/Tomarun029831/AlacrittySettings" target="_blank">Alacritty Settings</a></li>
-    </ul>
-  </div>
-
-  <div class="section">
-    <h2>📚 Histories</h2>
-    <ul>
-      <li>🎓 高専(茨城高専) 情報工学科 在学中 (2022年〜)</li>
-      <li>🧮 <a href="https://github.com/Tomarun029831/CalculationSolitaire" target="_blank">CalculationSolitaire</a>: C CLIアプリ</li>
-      <li>🎰 Slotアプリ (文化祭): 初のチーム開発</li>
-      <li>🕊️ RoamBird: Unity作品(Login System 制作中)</li>
-      <li>🏆 タイ日ハッカソン準優勝: 即席チームでUnityゲーム開発 <a href="https://play.unity.com/en/games/f29d60f8-c03a-43ed-9983-1281f630518e/earth-defense" target="_blank">EarthDefense</a></li>
-    </ul>
-  </div>
-
-  <div class="section">
-    <h2>🚀 Now</h2>
-    <ul>
-      <li>高専インカレチャレンジ & PBL活動</li>
-      <li><a href="https://github.com/Tomarun029831/BlackBoardCleaner" target="_blank">BlackBoardCleaner</a>: 現在進行中プロジェクト</li>
-      <li>プログラミングコンテスト予選：課題部門参加中</li>
-    </ul>
-  </div>
+            sections.forEach(section => observer.observe(section));
+        });
+    </script>
 </body>
 </html>
